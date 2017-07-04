@@ -16,7 +16,7 @@ export class TurtleGridComponent implements OnInit {
       gridWidth            : [10, [Validators.required]],
       initialPosX          : [1, [Validators.required]],
       initialPosY          : [1, [Validators.required]],
-      commmand          : ['FFRL', [Validators.required]],
+      command          : ['FFRL', [Validators.required]],
     });
   }
 

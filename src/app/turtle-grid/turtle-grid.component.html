@@ -1,3 +1,58 @@
-<p>
-  turtle-grid works!
-</p>
+<form [formGroup]="turtleForm">
+
+    <section fxLayout.lt-sm="column" fxLayoutAlign="space-around start">
+  <!--<section>-->
+      <section class="sub-form" fxLayout="column">
+        <h3 class="grey-text">Grid</h3>
+      <div>
+        <md-input-container>
+          <input mdInput type="number"
+                 formControlName="gridLength"
+                 placeholder="Length">
+        </md-input-container>
+        <md-input-container>
+          <input mdInput type="number"
+                 formControlName="gridWidth"
+                 placeholder="Width">
+        </md-input-container>
+      </div>
+
+      </section>
+
+            <section class="sub-form" fxLayout="column">
+        <h3 class="grey-text">Initial Position</h3>
+      <div>
+        <md-input-container>
+          <input mdInput type="number"
+                 formControlName="initialPosX"
+                 placeholder="X">
+        </md-input-container>
+        <md-input-container>
+          <input mdInput type="number"
+                 formControlName="initialPosY"
+                 placeholder="Y">
+        </md-input-container>
+      </div>
+
+      </section>
+
+
+            <section class="sub-form" fxLayout="column">
+        <h3 class="grey-text">Turtle Command</h3>
+      <div>
+        <md-input-container>
+          <input mdInput type="text"
+                 formControlName="command"
+                 placeholder="Command">
+        </md-input-container>
+        <!--<md-input-container>-->
+          <!--<input mdInput type="text"-->
+                 <!--formControlName="initialPosY"-->
+                 <!--placeholder="Initial Pos Y">-->
+        <!--</md-input-container>-->
+      </div>
+
+      </section>
+
+    </section>
+</form>
