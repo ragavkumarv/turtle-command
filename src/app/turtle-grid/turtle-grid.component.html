@@ -1,42 +1,40 @@
-<form [formGroup]="turtleForm">
+<form [formGroup]="form">
 
-    <section fxLayout.lt-sm="column" fxLayoutAlign="space-around start">
+    <section fxLayout.lt-sm="column" fxLayoutAlign="space-around start" formGroupName="details">
   <!--<section>-->
       <section class="sub-form" fxLayout="column">
         <h3 class="grey-text">Grid</h3>
       <div>
         <md-input-container>
-          <input mdInput type="number"
+          <input mdInput type="number" min="1"
                  formControlName="gridLength"
                  placeholder="Length">
         </md-input-container>
         <md-input-container>
-          <input mdInput type="number"
+          <input mdInput type="number" min="1"
                  formControlName="gridWidth"
                  placeholder="Width">
         </md-input-container>
       </div>
-
       </section>
-
             <section class="sub-form" fxLayout="column">
         <h3 class="grey-text">Initial Position</h3>
+         <span class="error"
+               *ngIf="form.get('details').touched        && form.get('details').hasError('nomatch')">
+           Type Valid Initial Position</span>
       <div>
         <md-input-container>
-          <input mdInput type="number"
+          <input mdInput type="number" min="1"
                  formControlName="initialPosX"
                  placeholder="X">
         </md-input-container>
         <md-input-container>
-          <input mdInput type="number"
+          <input mdInput type="number" min="1"
                  formControlName="initialPosY"
                  placeholder="Y">
         </md-input-container>
       </div>
-
       </section>
-
-
             <section class="sub-form" fxLayout="column">
         <h3 class="grey-text">Turtle Command</h3>
       <div>
@@ -46,9 +44,9 @@
                  placeholder="Command">
         </md-input-container>
         <!--<md-input-container>-->
-          <!--<input mdInput type="text"-->
-                 <!--formControlName="initialPosY"-->
-                 <!--placeholder="Initial Pos Y">-->
+        <!--<input mdInput type="text"-->
+        <!--formControlName="initialPosY"-->
+        <!--placeholder="Initial Pos Y">-->
         <!--</md-input-container>-->
       </div>
 
