@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
-import {forwards, turn} from './movement';
+import {forwards, turnLeft} from './movement';
 
 export const initialPosChecker = (control: AbstractControl) => {
   const gridLength = control.get('gridLength');
@@ -17,6 +17,6 @@ export const initialPosChecker = (control: AbstractControl) => {
   }
   console.log('pass check');
   console.log('forwards', forwards({posX: initialPosX.value, posY: initialPosY.value, dir: 'N' }));
-  console.log('turn', turn('L', { posX: initialPosX.value, posY: initialPosY.value, dir: 'N' }));
+  console.log('turn', turnLeft({ posX: initialPosX.value, posY: initialPosY.value, dir: 'N' }));
  return null;
 };
