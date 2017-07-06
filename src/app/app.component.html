@@ -1,1 +1,10 @@
-<app-turtle-grid></app-turtle-grid>
+<md-toolbar color="primary">Turtle command</md-toolbar>
+<app-turtle-grid (finalPos)="showPos($event)"></app-turtle-grid>
+<section>
+<div *ngIf="FinalPos"  fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <h3>Final Position</h3>
+  <p>{{FinalPos.posX}}</p>
+  <p>{{FinalPos.posY}}</p>
+  <p>{{FinalPos.dir}}</p>
+</div>
+</section>

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {initialPosChecker} from './position-checker';
-import {obstacles, splitStr} from './obstacle';
-import {toUpper, compose, reduce, curry} from 'ramda';
+import {compose, curry, reduce, toUpper} from 'ramda';
 import {updateTurtlePos} from './movement';
+import {cleanCmd, obstacles} from './obstacle';
+import {initialPosChecker} from './position-checker';
 
 @Component({
   selector: 'app-turtle-grid',
@@ -12,6 +12,8 @@ import {updateTurtlePos} from './movement';
 })
 export class TurtleGridComponent implements OnInit {
   form: FormGroup;
+  @Output()
+  finalPos = new EventEmitter<any>();
   constructor(public fb: FormBuilder) { }
 
   ngOnInit() {
@@ -21,25 +23,23 @@ export class TurtleGridComponent implements OnInit {
         gridWidth            : [10, [Validators.required]],
         initialPosX          : [1, [Validators.required]],
         initialPosY          : [1, [Validators.required]],
-        direction          : ['N', [Validators.required, Validators.pattern('^[NSEWnsew]*$')]],
-        command          : ['FFRL', [Validators.required, Validators.pattern('^[FRLfrl]*$')]],
+        direction          : ['N', [Validators.required]],
+        command          : ['FFFRRFLF', [Validators.required, Validators.pattern('^[FRLfrl]*$')]],
       }, { validator: initialPosChecker})
     });
   }
  finalSubmit(form) {
     console.log(form.value);
-    const gL = form.value.details.gridLength;
-    const gW = form.value.details.gridWidth;
-    const posX = form.value.details.initialPosX;
-    const posY = form.value.details.initialPosY;
-    const cmd: String = form.value.details.command;
-    const dir: String = toUpper(form.value.details.direction);
-    const cleanCmd = compose(splitStr, toUpper);
-    const Obstacles = obstacles({posX, posY}, {gL, gW});
-    const turtlePosObs = curry(updateTurtlePos)([]);
+    const details = form.value.details ;
+    const {initialPosX: posX, initialPosY: posY, command: cmd} = details;
+    const dir = toUpper(details.direction);
+    const gridDim = {gL: details.gridLength, gW: details.gridWidth};
+    const Obstacles = obstacles({posX, posY}, gridDim);
+    const turtlePosObs = curry(updateTurtlePos)(gridDim)([]);
     console.log(turtlePosObs);
     const FinalPos = reduce(turtlePosObs, { posX, posY, dir}, cleanCmd(cmd));
     console.log(FinalPos);
     console.log(Obstacles, cleanCmd(cmd));
+    this.finalPos.emit(FinalPos);
    }
 }

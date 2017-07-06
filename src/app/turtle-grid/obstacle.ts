@@ -1,5 +1,6 @@
+import {compose, contains, curry, indexOf, reduce, toUpper, until, update} from 'ramda';
 import {forwards} from './movement';
-import {contains, until, indexOf, update} from 'ramda';
+
 export const boundaryCond = ({gridLength, gridWidth} , currPos) => {
   const  {posX , posY, dir} = forwards(currPos);
   return (posX > 1 && posY > 1 && posX < gridLength && posY < gridWidth);
@@ -24,9 +25,7 @@ const randPairs = (gL, gW) => {
 
 const finalPairs = ({gL, gW}) => randPairs(gL, gW);
 
-
 const obsIdx = (initPos, FinalPairs) => indexOf(initPos, FinalPairs);
-
 
 const findUniq = ({gL, gW}, FinalPairs) => until(notContainsCurr(FinalPairs), x => randPair(gL, gW))(randPair(gL, gW));
 
@@ -38,11 +37,7 @@ export const obstacles = (initPos, gridDim) => {
 };
 
 export const splitStr = (str) => Array.from(str);
+export const cleanCmd = compose(splitStr, toUpper);
 console.log(obsIdx);
-// export const obstacles = ({gL, gW}, {posX , posY, dir}) => {
-//   const initPos = {posX, posY};
-//   const gridDim = {gL, gW};
-//   const obstaclesCord = updateArr(initPos, gridDim);
-//   return obstaclesCord;
-// };
+
 
