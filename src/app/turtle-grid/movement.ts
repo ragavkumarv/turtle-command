@@ -41,7 +41,6 @@ export const turnRight = ({posX , posY, dir}) => {
 
 
 const outOfBound = ({posX, posY}, {gL, gW}) => {
-  console.log((posX > gL || posX < 1 || posY > gW || posY < 1));
   return (posX > gL || posX < 1 || posY > gW || posY < 1);
 };
 
@@ -49,9 +48,9 @@ export const updateTurtlePos = (gridDim, Obstacles, turtlePos, cmd) => {
     switch (cmd) {
     case 'F':
         const Fwd = forwards(turtlePos);
-
+        const {posX, posY} = Fwd;
          return outOfBound(Fwd, gridDim) ? turtlePos :
-                contains(Fwd, Obstacles) ? turtlePos : Fwd;
+                contains({posX, posY}, Obstacles) ? turtlePos : Fwd;
     case 'R':
       return turnRight(turtlePos);
     case 'L':

@@ -1,12 +1,6 @@
 import {compose, contains, curry, indexOf, reduce, toUpper, until, update} from 'ramda';
-import {forwards} from './movement';
-
-export const boundaryCond = ({gridLength, gridWidth} , currPos) => {
-  const  {posX , posY, dir} = forwards(currPos);
-  return (posX > 1 && posY > 1 && posX < gridLength && posY < gridWidth);
-};
 const randNum = (max, min) => Math.floor(Math.random() * (max - min + 1) + min);
-// const randPair = (gL,gW) => ({X:randNum(gL,1),Y:randNum(gW,1)})
+
 const randPair = (gL, gW) => ({
   posX: randNum(gL, 1),
   posY: randNum(gW, 1)
@@ -38,6 +32,5 @@ export const obstacles = (initPos, gridDim) => {
 
 export const splitStr = (str) => Array.from(str);
 export const cleanCmd = compose(splitStr, toUpper);
-console.log(obsIdx);
 
 

@@ -24,22 +24,19 @@ export class TurtleGridComponent implements OnInit {
         initialPosX          : [1, [Validators.required]],
         initialPosY          : [1, [Validators.required]],
         direction          : ['N', [Validators.required]],
+        obstacles          : ['Y', [Validators.required]],
         command          : ['FFFRRFLF', [Validators.required, Validators.pattern('^[FRLfrl]*$')]],
       }, { validator: initialPosChecker})
     });
   }
  finalSubmit(form) {
-    console.log(form.value);
     const details = form.value.details ;
-    const {initialPosX: posX, initialPosY: posY, command: cmd} = details;
+    const {initialPosX: posX, initialPosY: posY, command: cmd, obstacles: obcheck} = details;
     const dir = toUpper(details.direction);
     const gridDim = {gL: details.gridLength, gW: details.gridWidth};
-    const Obstacles = obstacles({posX, posY}, gridDim);
-    const turtlePosObs = curry(updateTurtlePos)(gridDim)([]);
-    console.log(turtlePosObs);
+    const Obstacles =  obcheck === 'Y' ? obstacles({posX, posY}, gridDim) : [];
+    const turtlePosObs = curry(updateTurtlePos)(gridDim)(Obstacles);
     const FinalPos = reduce(turtlePosObs, { posX, posY, dir}, cleanCmd(cmd));
-    console.log(FinalPos);
-    console.log(Obstacles, cleanCmd(cmd));
     this.finalPos.emit(FinalPos);
    }
 }

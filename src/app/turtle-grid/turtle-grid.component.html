@@ -17,7 +17,7 @@
         </md-input-container>
       </div>
       </section>
-            <section class="sub-form" fxLayout="column">
+      <section class="sub-form" fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
         <h3 class="grey-text">Initial Position</h3>
          <span class="error"
@@ -35,15 +35,22 @@
                  formControlName="initialPosY"
                  placeholder="Y">
         </md-input-container>
-        <md-radio-group formControlName="direction">
+
+
+          </div>
+      </section>
+      <section class="sub-form" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="40px">
+        <h3 class="grey-text">Initail Direction</h3>
+      <div>
+      <md-radio-group formControlName="direction">
           <md-radio-button value="N">N</md-radio-button>
           <md-radio-button value="S">S</md-radio-button>
           <md-radio-button value="E">E</md-radio-button>
           <md-radio-button value="W">W</md-radio-button>
         </md-radio-group>
-          </div>
+      </div>
       </section>
-            <section class="sub-form" fxLayout="column">
+      <section class="sub-form" fxLayout="column">
         <h3 class="grey-text">Turtle Command</h3>
       <div>
         <md-input-container>
@@ -51,16 +58,21 @@
                  formControlName="command"
                  placeholder="Command">
         </md-input-container>
-        <!--<md-input-container>-->
-        <!--<input mdInput type="text"-->
-        <!--formControlName="initialPosY"-->
-        <!--placeholder="Initial Pos Y">-->
-        <!--</md-input-container>-->
       </div>
+      </section>
+       <section fxLayout.lt-sm="column" fxLayoutAlign="space-around start">
+    <section fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="40px">
+        <h3 class="grey-text">Obstacles</h3>
+
+      <md-radio-group formControlName="obstacles">
+          <md-radio-button value="Y">Yes</md-radio-button>
+          <md-radio-button value="N">No</md-radio-button>
+        </md-radio-group>
 
       </section>
-
+  </section>
     </section>
+
   <section fxLayoutAlign="center start">
     <button type="submit" md-raised-button color="primary" [disabled]="form.invalid">Move!</button>
   </section>
