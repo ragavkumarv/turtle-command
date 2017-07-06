@@ -1,7 +1,9 @@
-<form (ngSubmit)="finalSubmit(form)" [formGroup]="form">
+<section class="container">
+<form (ngSubmit)="finalSubmit(form)" [formGroup]="form" >
 
-    <section fxLayout.lt-sm="column" fxLayoutAlign="space-around start" formGroupName="details">
+    <section formGroupName="details">
   <!--<section>-->
+      <section fxLayout.lt-sm="column" fxLayoutAlign="space-between start" >
       <section class="sub-form" fxLayout="column">
         <h3 class="grey-text">Grid</h3>
       <div>
@@ -18,10 +20,10 @@
       </div>
       </section>
       <section class="sub-form" fxLayout="column">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" >
         <h3 class="grey-text">Initial Position</h3>
          <span class="error"
-               *ngIf="form.get('details').touched        && form.get('details').hasError('nomatch')">
+               *ngIf="form.get('details').touched  && form.get('details').hasError('nomatch')">
            Type Valid Initial Position</span>
             </div>
       <div>
@@ -50,7 +52,9 @@
         </md-radio-group>
       </div>
       </section>
-      <section class="sub-form" fxLayout="column">
+        </section>
+      <section fxLayout.lt-sm="column"  >
+      <section class="sub-form" fxLayout="column" fxFlex="43">
         <h3 class="grey-text">Turtle Command</h3>
       <div>
         <md-input-container>
@@ -71,6 +75,7 @@
 
       </section>
   </section>
+      </section>
     </section>
 
   <section fxLayoutAlign="center start">
@@ -78,3 +83,4 @@
   </section>
 
 </form>
+</section>
