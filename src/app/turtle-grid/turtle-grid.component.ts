@@ -14,6 +14,8 @@ export class TurtleGridComponent implements OnInit {
   form: FormGroup;
   @Output()
   finalPos = new EventEmitter<any>();
+  @Output()
+  obstacles = new EventEmitter<any>();
   constructor(public fb: FormBuilder) { }
 
   ngOnInit() {
@@ -37,6 +39,8 @@ export class TurtleGridComponent implements OnInit {
     const Obstacles =  obcheck === 'Y' ? obstacles({posX, posY}, gridDim) : [];
     const turtlePosObs = curry(updateTurtlePos)(gridDim)(Obstacles);
     const FinalPos = reduce(turtlePosObs, { posX, posY, dir}, cleanCmd(cmd));
+    console.log(Obstacles);
+    this.obstacles.emit(Obstacles);
     this.finalPos.emit(FinalPos);
    }
 }

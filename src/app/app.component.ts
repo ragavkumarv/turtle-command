@@ -8,7 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
   FinalPos;
+  Obstacles;
   showPos(finalPos) {
     this.FinalPos = finalPos;
+  }
+  showObs(Obstacles) {
+    this.Obstacles = Obstacles;
   }
 }
