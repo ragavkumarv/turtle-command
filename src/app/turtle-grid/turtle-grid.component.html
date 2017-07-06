@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form (ngSubmit)="finalSubmit(form)" [formGroup]="form">
 
     <section fxLayout.lt-sm="column" fxLayoutAlign="space-around start" formGroupName="details">
   <!--<section>-->
@@ -33,6 +33,11 @@
                  formControlName="initialPosY"
                  placeholder="Y">
         </md-input-container>
+        <md-input-container>
+          <input mdInput type="text"
+                 formControlName="direction"
+                 placeholder="Direction">
+        </md-input-container>
       </div>
       </section>
             <section class="sub-form" fxLayout="column">
@@ -53,4 +58,5 @@
       </section>
 
     </section>
+<button type="submit" md-raised-button color="primary" [disabled]="form.invalid">Move!</button>
 </form>

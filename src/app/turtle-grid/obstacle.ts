@@ -30,18 +30,19 @@ const obsIdx = (initPos, FinalPairs) => indexOf(initPos, FinalPairs);
 
 const findUniq = ({gL, gW}, FinalPairs) => until(notContainsCurr(FinalPairs), x => randPair(gL, gW))(randPair(gL, gW));
 
-export const updateArr = (initPos, gridDim) => {
+export const obstacles = (initPos, gridDim) => {
   const FinalPairs = finalPairs(gridDim);
   const ObsIdx = obsIdx(initPos, FinalPairs);
   return (ObsIdx === -1) ?
     FinalPairs : update(ObsIdx, findUniq(gridDim, FinalPairs), FinalPairs);
 };
 
+export const splitStr = (str) => Array.from(str);
 console.log(obsIdx);
-export const obstacles = ({gL, gW}, {posX , posY, dir}) => {
-  const initPos = {posX, posY};
-  const gridDim = {gL, gW};
-  const obstaclesCord = updateArr(initPos, gridDim);
-  return obstaclesCord;
-};
+// export const obstacles = ({gL, gW}, {posX , posY, dir}) => {
+//   const initPos = {posX, posY};
+//   const gridDim = {gL, gW};
+//   const obstaclesCord = updateArr(initPos, gridDim);
+//   return obstaclesCord;
+// };
 

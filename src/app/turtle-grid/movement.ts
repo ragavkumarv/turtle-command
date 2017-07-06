@@ -1,3 +1,5 @@
+import {contains} from 'ramda';
+
 export const forwards = ({posX , posY, dir}) => {
   switch (dir) {
     case 'N':
@@ -37,10 +39,10 @@ export const turnRight = ({posX , posY, dir}) => {
     }
 };
 
-export const updateTurtlePos = (cmd, turtlePos) => {
+export const updateTurtlePos = (Obstacles, turtlePos, cmd) => {
   switch (cmd) {
     case 'F':
-      return forwards(turtlePos);
+         return contains(forwards(turtlePos), Obstacles) ? turtlePos : forwards(turtlePos);
     case 'R':
       return turnRight(turtlePos);
     case 'L':
