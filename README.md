@@ -14,7 +14,7 @@ final position of turtle and printing the grid state will be an added plus. When
 obstacle, movement is not possible.
 
 ## Solution
-The main logic are files:  
+The main logic are in files:  
 src/turtle-grid/movement.ts  
 src/turtle-grid/obstacle.ts  
 src/turtle-grid/position-checker   
