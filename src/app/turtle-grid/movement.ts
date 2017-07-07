@@ -1,44 +1,44 @@
-import {contains, lens, set, prop, add} from 'ramda';
-const xLens = lens(prop('posX'));
-const yLens = lens(prop('posY'));
-const dirLens = lens(prop('dir'));
+import {add, assoc, contains, lens, over, prop, set, view} from 'ramda';
+const xLens = lens(prop('posX'), assoc('posX'));
+const yLens = lens(prop('posY'), assoc('posY'));
+const dirLens = lens(prop('dir'), assoc('dir'));
 
-export const forwards = ({posX , posY, dir}) => {
-  switch (dir) {
+export const forwards = (currPos) => {
+  switch (view(dirLens, currPos)) {
     case 'N':
-      return Object.assign({}, { posX, posY: posY + 1, dir}) ;
+      return over(yLens, add(1), currPos) ;
     case 'S':
-      return Object.assign({}, { posX, posY: posY - 1, dir}) ;
+      return over(yLens, add(-1), currPos) ;
     case 'E':
-      return Object.assign({}, { posX: posX + 1 , posY, dir}) ;
+      return over(xLens, add(1), currPos) ;
     case 'W':
-      return Object.assign({}, { posX: posX - 1, posY, dir}) ;
+      return over(xLens, add(-1), currPos) ;
   }
 };
 
-export const turnLeft = ({posX , posY, dir}) => {
-    switch (dir) {
+export const turnLeft = (currPos) => {
+    switch (view(dirLens, currPos)) {
       case 'N':
-        return Object.assign({}, {posX, posY, dir: 'W'});
+        return set(dirLens, 'W', currPos) ;
       case 'W':
-        return Object.assign({}, {posX, posY, dir: 'S'});
+        return set(dirLens, 'S', currPos);
       case 'S':
-        return Object.assign({}, {posX, posY, dir: 'E'});
+        return set(dirLens, 'E', currPos);
       case 'E':
-        return Object.assign({}, {posX, posY, dir: 'N'});
+        return set(dirLens, 'N', currPos);
     }
   };
 
-export const turnRight = ({posX , posY, dir}) => {
-    switch (dir) {
+export const turnRight = (currPos) => {
+    switch (view(dirLens, currPos)) {
       case 'N':
-        return Object.assign({}, {posX, posY, dir: 'E'});
+        return set(dirLens, 'E', currPos);
       case 'E':
-        return Object.assign({}, {posX, posY, dir: 'S'});
+        return set(dirLens, 'S', currPos);
       case 'S':
-        return Object.assign({}, {posX, posY, dir: 'W'});
+        return set(dirLens, 'W', currPos);
       case 'W':
-        return Object.assign({}, {posX, posY, dir: 'N'});
+        return set(dirLens, 'N', currPos);
     }
 };
 
@@ -60,4 +60,3 @@ export const updateTurtlePos = (gridDim, Obstacles, turtlePos, cmd) => {
       return turnLeft(turtlePos);
   }
 };
-// console.log(over(yLens, add(1), turtlePos));

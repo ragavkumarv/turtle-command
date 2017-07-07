@@ -16,7 +16,7 @@ const randPairs = (gridDim) => {
   const newUniq = findUniqPairs(gridDim);
   const uniqPairs = compose(newUniq, randPairs);
   if (gW === 1 || gL === 1) {
-    console.log(gridDim, 'here');
+    // console.log(gridDim, 'here');
     return [randPair(gridDim)];
   }
   return uniqPairs({gL: gL - 1, gW: gW - 1});
@@ -25,7 +25,7 @@ const randPairs = (gridDim) => {
 
 export const obstacles = (initPos, gridDim) => {
   const FinalPairs = randPairs(gridDim);
-  console.log(FinalPairs);
+  // console.log(FinalPairs);
   const ObsIdx = obsIdx(initPos, FinalPairs);
   return (ObsIdx === -1) ?
     FinalPairs : update(ObsIdx, findUniqPair(gridDim, FinalPairs), FinalPairs);
