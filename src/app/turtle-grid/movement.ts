@@ -1,4 +1,4 @@
-import {add, assoc, contains, lens, over, prop, set, view} from 'ramda';
+import {add, assoc, contains, lens, over, prop, set, view, __} from 'ramda';
 const xLens = lens(prop('posX'), assoc('posX'));
 const yLens = lens(prop('posY'), assoc('posY'));
 const dirLens = lens(prop('dir'), assoc('dir'));
@@ -17,28 +17,30 @@ export const forwards = (currPos) => {
 };
 
 export const turnLeft = (currPos) => {
+  const _set = set(dirLens, __, currPos);
     switch (view(dirLens, currPos)) {
       case 'N':
-        return set(dirLens, 'W', currPos) ;
+        return _set('W') ;
       case 'W':
-        return set(dirLens, 'S', currPos);
+        return _set('S');
       case 'S':
-        return set(dirLens, 'E', currPos);
+        return _set('E');
       case 'E':
-        return set(dirLens, 'N', currPos);
+        return _set('N');
     }
   };
 
 export const turnRight = (currPos) => {
+    const _set = set(dirLens, __, currPos);
     switch (view(dirLens, currPos)) {
       case 'N':
-        return set(dirLens, 'E', currPos);
+        return _set('E');
       case 'E':
-        return set(dirLens, 'S', currPos);
+        return _set('S');
       case 'S':
-        return set(dirLens, 'W', currPos);
+        return _set('W');
       case 'W':
-        return set(dirLens, 'N', currPos);
+        return _set('N');
     }
 };
 
