@@ -1,47 +1,38 @@
-import {add, assoc, contains, lens, over, prop, set, view, __} from 'ramda';
+import {add, assoc, contains, lens, over, prop, set, view, __, cond, equals} from 'ramda';
 const xLens = lens(prop('posX'), assoc('posX'));
 const yLens = lens(prop('posY'), assoc('posY'));
 const dirLens = lens(prop('dir'), assoc('dir'));
+const eq = equals;
 
 export const forwards = (currPos) => {
-  switch (view(dirLens, currPos)) {
-    case 'N':
-      return over(yLens, add(1), currPos) ;
-    case 'S':
-      return over(yLens, add(-1), currPos) ;
-    case 'E':
-      return over(xLens, add(1), currPos) ;
-    case 'W':
-      return over(xLens, add(-1), currPos) ;
-  }
+  const overX = x => () => over(xLens, x, currPos);
+  const overY = y => () => over(yLens, y, currPos);
+      return cond([
+        [eq('N'), overY(add(+1))],
+        [eq('S'), overY(add(-1))],
+        [eq('E'), overX(add(+1))],
+        [eq('W'), overX(add(-1))],
+      ])(view(dirLens, currPos));
 };
 
 export const turnLeft = (currPos) => {
-  const _set = set(dirLens, __, currPos);
-    switch (view(dirLens, currPos)) {
-      case 'N':
-        return _set('W') ;
-      case 'W':
-        return _set('S');
-      case 'S':
-        return _set('E');
-      case 'E':
-        return _set('N');
-    }
+  const _set = x => () => set(dirLens, x , currPos);
+    return cond([
+    [eq('N'), _set('W')],
+    [eq('W'), _set('S')],
+    [eq('S'), _set('E')],
+    [eq('E'), _set('N')],
+  ])(view(dirLens, currPos));
   };
 
 export const turnRight = (currPos) => {
-    const _set = set(dirLens, __, currPos);
-    switch (view(dirLens, currPos)) {
-      case 'N':
-        return _set('E');
-      case 'E':
-        return _set('S');
-      case 'S':
-        return _set('W');
-      case 'W':
-        return _set('N');
-    }
+    const _set = x => () => set(dirLens, x , currPos);
+    return cond([
+      [eq('N'), _set('E')],
+      [eq('E'), _set('S')],
+      [eq('S'), _set('W')],
+      [eq('W'), _set('N')],
+  ])(view(dirLens, currPos));
 };
 
 
