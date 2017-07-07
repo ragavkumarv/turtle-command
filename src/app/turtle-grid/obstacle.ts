@@ -8,26 +8,27 @@ const randPair = ({gL, gW}) => ({
 const obsIdx = (initPos, FinalPairs) => indexOf(initPos, FinalPairs);
 
 const notContains = pairs => x => !contains(x, pairs);
+const findUniqPair = (gridDim, FinalPairs) => until(notContains(FinalPairs), x => randPair(gridDim))(randPair(gridDim));
+const findUniqPairs = curry(( gridDim, FinalPairs) => [...FinalPairs, findUniqPair(gridDim, FinalPairs)]);
 
-const findUniq = curry(( gridDim, FinalPairs) => until(notContains(FinalPairs), x => randPair(gridDim))(randPair(gridDim)));
-
-const randPairs = (griDim) => {
-  const {gL, gW} = griDim;
-  const newUniq = findUniq(griDim);
-  const comp = compose(newUniq, randPairs);
+const randPairs = (gridDim) => {
+  const {gL, gW} = gridDim;
+  const newUniq = findUniqPairs(gridDim);
+  const uniqPairs = compose(newUniq, randPairs);
   if (gW === 1 || gL === 1) {
-    return [randPair(griDim)];
+    console.log(gridDim, 'here');
+    return [randPair(gridDim)];
   }
-  const newPair = comp({gL: gL - 1, gW: gW - 1});
-  return [...newPair];
+  return uniqPairs({gL: gL - 1, gW: gW - 1});
 };
 
 
 export const obstacles = (initPos, gridDim) => {
   const FinalPairs = randPairs(gridDim);
+  console.log(FinalPairs);
   const ObsIdx = obsIdx(initPos, FinalPairs);
   return (ObsIdx === -1) ?
-    FinalPairs : update(ObsIdx, findUniq(gridDim, FinalPairs), FinalPairs);
+    FinalPairs : update(ObsIdx, findUniqPair(gridDim, FinalPairs), FinalPairs);
 };
 
 export const splitStr = (str) => Array.from(str);

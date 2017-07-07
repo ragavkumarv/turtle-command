@@ -1,4 +1,7 @@
-import {contains} from 'ramda';
+import {contains, lens, set, prop, add} from 'ramda';
+const xLens = lens(prop('posX'));
+const yLens = lens(prop('posY'));
+const dirLens = lens(prop('dir'));
 
 export const forwards = ({posX , posY, dir}) => {
   switch (dir) {
@@ -57,4 +60,4 @@ export const updateTurtlePos = (gridDim, Obstacles, turtlePos, cmd) => {
       return turnLeft(turtlePos);
   }
 };
-
+// console.log(over(yLens, add(1), turtlePos));
