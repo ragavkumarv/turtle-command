@@ -15,9 +15,9 @@ obstacle, movement is not possible.
 
 ## Solution
 The main logic are in files:  
-src/turtle-grid/movement.ts  
-src/turtle-grid/obstacle.ts  
-src/turtle-grid/position-checker   
+src/app/turtle-grid/movement.ts  
+src/app/turtle-grid/obstacle.ts  
+src/app/turtle-grid/position-checker   
 
 ## Installation
 clone repo  
