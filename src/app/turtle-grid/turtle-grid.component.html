@@ -9,12 +9,12 @@
       <div>
         <md-input-container>
           <input mdInput type="number" min="1"
-                 formControlName="gridLength"
+                 formControlName="gL"
                  placeholder="Length">
         </md-input-container>
         <md-input-container>
           <input mdInput type="number" min="1"
-                 formControlName="gridWidth"
+                 formControlName="gW"
                  placeholder="Width">
         </md-input-container>
       </div>
@@ -29,12 +29,12 @@
       <div>
         <md-input-container>
           <input mdInput type="number" min="1"
-                 formControlName="initialPosX"
+                 formControlName="posX"
                  placeholder="X">
         </md-input-container>
         <md-input-container>
           <input mdInput type="number" min="1"
-                 formControlName="initialPosY"
+                 formControlName="posY"
                  placeholder="Y">
         </md-input-container>
 
@@ -44,7 +44,7 @@
       <section class="sub-form" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="40px">
         <h3 class="grey-text">Initail Direction</h3>
       <div>
-      <md-radio-group formControlName="direction">
+      <md-radio-group formControlName="dir">
           <md-radio-button value="N">N</md-radio-button>
           <md-radio-button value="S">S</md-radio-button>
           <md-radio-button value="E">E</md-radio-button>
@@ -59,7 +59,7 @@
       <div>
         <md-input-container>
           <input mdInput type="text"
-                 formControlName="command"
+                 formControlName="cmd"
                  placeholder="Command">
         </md-input-container>
       </div>
@@ -68,7 +68,7 @@
     <section fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="40px">
         <h3 class="grey-text">Obstacles</h3>
 
-      <md-radio-group formControlName="obstacles">
+      <md-radio-group formControlName="obChk">
           <md-radio-button value="Y">Yes</md-radio-button>
           <md-radio-button value="N">No</md-radio-button>
         </md-radio-group>

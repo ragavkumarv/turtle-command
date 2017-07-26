@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {compose, curry, reduce, toUpper} from 'ramda';
 import {updateTurtlePos} from './movement';
-import {cleanCmd, obstacles} from './obstacle';
+import {cleanCmd, Obstacle} from './obstacle';
 import {initialPosChecker} from './position-checker';
 
 @Component({
@@ -21,22 +21,22 @@ export class TurtleGridComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       details: this.fb.group({
-        gridLength            : [10, [Validators.required]],
-        gridWidth            : [10, [Validators.required]],
-        initialPosX          : [1, [Validators.required]],
-        initialPosY          : [1, [Validators.required]],
-        direction          : ['N', [Validators.required]],
-        obstacles          : ['Y', [Validators.required]],
-        command          : ['FFFRRFLF', [Validators.required, Validators.pattern('^[FRLfrl]*$')]],
+        gL : [10, [Validators.required]], // Grid Length
+        gW  : [10, [Validators.required]], // Grid Width
+        posX       : [1, [Validators.required]],  // Initial posX
+        posY: [1, [Validators.required]],         // Initial posY
+        dir  : ['N', [Validators.required]],      // Initial facing direction
+        obChk  : ['Y', [Validators.required]],    // Obstacle check
+        cmd    : ['FFFRRFLF', [Validators.required, Validators.pattern('^[FRLfrl]*$')]], // Command
       }, { validator: initialPosChecker})
     });
   }
  finalSubmit(form) {
-    const details = form.value.details ;
-    const {initialPosX: posX, initialPosY: posY, command: cmd, obstacles: obcheck} = details;
-    const dir = toUpper(details.direction);
-    const gridDim = {gL: details.gridLength, gW: details.gridWidth};
-    const Obstacles =  obcheck === 'Y' ? obstacles({posX, posY}, gridDim) : [];
+    const details = form.value.details;
+    const {posX, posY, cmd, obChk, gL, gW} = details;
+    const dir = toUpper(details.dir);
+    const gridDim = {gL, gW};
+    const Obstacles =  obChk === 'Y' ? new Obstacle({posX, posY}, gridDim)._randPairs() : [];
     const turtlePosObs = curry(updateTurtlePos)(gridDim)(Obstacles);
     const FinalPos = reduce(turtlePosObs, { posX, posY, dir}, cleanCmd(cmd));
     console.log(Obstacles);

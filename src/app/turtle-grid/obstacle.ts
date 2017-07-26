@@ -1,37 +1,36 @@
-import {compose, contains, curry, indexOf, reduce, toUpper, until, update} from 'ramda';
+import {compose, contains, curry, indexOf, reduce, toUpper, until, update, equals} from 'ramda';
+
 const randNum = (max, min) => Math.floor(Math.random() * (max - min + 1) + min);
 
 const randPair = ({gL, gW}) => ({
   posX: randNum(gL, 1),
   posY: randNum(gW, 1)
 });
-const obsIdx = (initPos, FinalPairs) => indexOf(initPos, FinalPairs);
-
-const notContains = pairs => x => !contains(x, pairs);
-const findUniqPair = (gridDim, FinalPairs) => until(notContains(FinalPairs), x => randPair(gridDim))(randPair(gridDim));
-const findUniqPairs = curry(( gridDim, FinalPairs) => [...FinalPairs, findUniqPair(gridDim, FinalPairs)]);
-
-const randPairs = (gridDim) => {
-  const {gL, gW} = gridDim;
-  const newUniq = findUniqPairs(gridDim);
-  const uniqPairs = compose(newUniq, randPairs);
-  if (gW === 1 || gL === 1) {
-    // console.log(gridDim, 'here');
-    return [randPair(gridDim)];
-  }
-  return uniqPairs({gL: gL - 1, gW: gW - 1});
-};
-
-
-export const obstacles = (initPos, gridDim) => {
-  const FinalPairs = randPairs(gridDim);
-  // console.log(FinalPairs);
-  const ObsIdx = obsIdx(initPos, FinalPairs);
-  return (ObsIdx === -1) ?
-    FinalPairs : update(ObsIdx, findUniqPair(gridDim, FinalPairs), FinalPairs);
-};
 
 export const splitStr = (str) => Array.from(str);
 export const cleanCmd = compose(splitStr, toUpper);
 
+export class Obstacle {
+  _gridDim: any;
+  _initPos: any;
+  constructor(initPos, gridDim) {
+    this._initPos = initPos;
+    this._gridDim = gridDim;
+  }
 
+   _randPairs() {
+    let {gL, gW} = this._gridDim;
+    let FinalPairs = [];
+    while ( gW > 1 && gL > 1) {
+      let RandPair = randPair({gL, gW});
+      // Create new pair until unique pair is found
+      while (contains(RandPair, FinalPairs) || equals(RandPair, this._initPos)) {
+        RandPair = randPair({gL, gW});
+      }
+      FinalPairs =  [...FinalPairs, RandPair];
+      gW--; gL--;
+    }
+    return FinalPairs;
+  }
+
+}
