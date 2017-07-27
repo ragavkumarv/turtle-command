@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {compose, curry, reduce, toUpper} from 'ramda';
-import {updateTurtlePos} from './movement';
+import {Turtle, updateTurtlePos} from './movement';
 import {cleanCmd, Obstacle} from './obstacle';
 import {initialPosChecker} from './position-checker';
 
@@ -36,11 +36,11 @@ export class TurtleGridComponent implements OnInit {
     const {posX, posY, cmd, obChk, gL, gW} = details;
     const dir = toUpper(details.dir);
     const gridDim = {gL, gW};
-    const Obstacles =  obChk === 'Y' ? new Obstacle({posX, posY}, gridDim)._randPairs() : [];
-    const turtlePosObs = curry(updateTurtlePos)(gridDim)(Obstacles);
-    const FinalPos = reduce(turtlePosObs, { posX, posY, dir}, cleanCmd(cmd));
-    console.log(Obstacles);
-    this.obstacles.emit(Obstacles);
+    // End of Destructing
+    const obstacles =  obChk === 'Y' ? new Obstacle({posX, posY}, gridDim)._randPairs() : [];
+    const FinalPos = new Turtle(gridDim, obstacles, {posX, posY, dir}, cmd)._move();
+    // Emit values
+    this.obstacles.emit(obstacles);
     this.finalPos.emit(FinalPos);
    }
 }

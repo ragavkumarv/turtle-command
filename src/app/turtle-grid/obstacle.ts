@@ -7,9 +7,6 @@ const randPair = ({gL, gW}) => ({
   posY: randNum(gW, 1)
 });
 
-export const splitStr = (str) => Array.from(str);
-export const cleanCmd = compose(splitStr, toUpper);
-
 export class Obstacle {
   _gridDim: any;
   _initPos: any;
@@ -34,3 +31,7 @@ export class Obstacle {
   }
 
 }
+
+
+export const splitStr = (str) => Array.from(str);
+export const cleanCmd = compose(splitStr, toUpper);
