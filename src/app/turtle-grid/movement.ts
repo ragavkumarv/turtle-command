@@ -7,7 +7,7 @@ const eq = equals;
 
 export const finalPosition = (gridDim, obstacles, initPos, cmd) => {
   const turtle = new Turtle(gridDim, obstacles, initPos);
-  const stepPos = map(x => { switch (x) {
+  const StepPos = map(x => { switch (x) {
     case 'F':
       turtle._forwards();
       return turtle.currPos();
@@ -18,8 +18,7 @@ export const finalPosition = (gridDim, obstacles, initPos, cmd) => {
       turtle._turnLeft();
       return turtle.currPos();
   }})(cleanCmd(cmd));
-  console.log('stepPos', stepPos);
-  return turtle.currPos();
+  return {FinalPos: turtle.currPos(), StepPos};
 };
 
 export class Turtle {

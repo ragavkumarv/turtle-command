@@ -8,9 +8,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
   FinalPos;
+  StepPositions = [];
   Obstacles = [];
   showPos(finalPos) {
     this.FinalPos = finalPos;
+  }
+  showStepPos(stepPos) {
+    this.StepPositions = stepPos;
   }
   showObs(Obstacles) {
     console.log(Obstacles);

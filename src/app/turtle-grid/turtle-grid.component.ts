@@ -15,6 +15,8 @@ export class TurtleGridComponent implements OnInit {
   @Output()
   finalPos = new EventEmitter<any>();
   @Output()
+  stepPos = new EventEmitter<any>();
+  @Output()
   obstacles = new EventEmitter<any>();
   constructor(public fb: FormBuilder) { }
 
@@ -38,9 +40,10 @@ export class TurtleGridComponent implements OnInit {
     const gridDim = {gL, gW};
     // End of Destructing
     const obstacles =  obChk === 'Y' ? new Obstacle({posX, posY}, gridDim)._randPairs() : [];
-    const FinalPos = finalPosition(gridDim, obstacles, {posX, posY, dir}, cmd);
+    const {FinalPos, StepPos} = finalPosition(gridDim, obstacles, {posX, posY, dir}, cmd);
     // Emit values
     this.obstacles.emit(obstacles);
     this.finalPos.emit(FinalPos);
+    this.stepPos.emit(StepPos);
    }
 }
